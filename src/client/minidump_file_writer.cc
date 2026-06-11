@@ -43,7 +43,9 @@
 
 #include "client/minidump_file_writer-inl.h"
 #include "common/linux/linux_libc_support.h"
+#ifndef _WIN32
 #include "common/memory_allocator.h"
+#endif
 #include "common/string_conversion.h"
 #if defined(__linux__) && __linux__
 #include "third_party/lss/linux_syscall_support.h"
@@ -289,7 +291,12 @@ MDRVA MinidumpFileWriter::Allocate(size_t size) {
     return current_position;
   }
 #endif
+
+#ifndef _WIN32
   size_t aligned_size = PageAllocator::AlignUp(size, 8);  // 64-bit alignment
+#else
+  size_t aligned_size = (size + 7) & ~7;
+#endif
 
   if (position_ + aligned_size > size_) {
     size_t growth = aligned_size;
