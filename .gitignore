@@ -89,3 +89,4 @@ src/Makefile
 .vscode/
 .xmake/
 build/
+dumps/

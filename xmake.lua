@@ -228,3 +228,17 @@ target("minidump_stackwalk")
         "src/processor/convert_old_arm64_context.cc",
         "src/common/path_helper.cc"
     )
+
+target("demo")
+    set_kind("binary")
+    add_deps("breakpad")
+    if is_mode("release") then
+        if is_plat("windows") then
+            add_cxflags("/Zi", "/FS", "/Fd$(builddir)\\$(plat)\\$(arch)\\release\\demo.pdb")
+            add_ldflags("/DEBUG", "/PDB:$(builddir)\\$(plat)\\$(arch)\\release\\demo.pdb")
+        else
+            add_cxflags("-g")
+        end
+    end
+    add_files("src/demo/*.cc")
+    add_includedirs("src")
