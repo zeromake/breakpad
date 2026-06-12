@@ -230,6 +230,7 @@ target("minidump_stackwalk")
     )
 
 target("demo")
+    set_default(false)
     set_kind("binary")
     add_deps("breakpad")
     if is_mode("release") then
