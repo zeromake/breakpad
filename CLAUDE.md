@@ -167,12 +167,12 @@ xmake breakpad
 
 ### 2. 从二进制提取符号
 ```bash
-# Linux
+# Linux | Windows
 xmake dump_syms
 xmake run dump_syms /path/to/binary > output.sym
 
-# Windows
-# 使用 src/tools/windows/dump_syms/dump_syms.cc (VS 项目)
+# 另一种方式直接创建好目录放置对应的 sym
+xmake run dump_syms /path/to/binary /path/to/dir
 ```
 
 ### 3. 分析 minidump
